@@ -14,7 +14,9 @@ that fits the stage.
 - **Next three moves** — nothing else matters until those are done, ending in one revival milestone.
 - **Talent database** — searchable by skill, sector and availability.
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for the domain model and the full Founder OS rule set.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the domain model and the full Founder OS rule set, and
+[docs/DEADSTART.md](./docs/DEADSTART.md) for the product spec: the Deadstart pitch, the data we
+collect, revival paths and metrics.
 
 ## Run it
 

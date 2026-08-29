@@ -127,6 +127,9 @@ export default function StartupDetail() {
           >
             {status === 'reviving' ? 'Revival in progress' : 'Start the revival'}
           </button>
+          <p style={{ marginBottom: 0, marginTop: 12 }}>
+            <Link to={`/dashboard/${graveId}`}>Open the founder dashboard →</Link>
+          </p>
         </div>
       </div>
 

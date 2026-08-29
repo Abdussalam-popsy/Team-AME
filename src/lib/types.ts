@@ -72,8 +72,21 @@ export interface TeamMember {
   id: string
   name: string
   title: string
+  headline: string
   focus: string
+  helpWith: string[]
   linkedin: string
+}
+
+/** A tool, credit or programme a revived startup can claim. */
+export interface Perk {
+  id: string
+  provider: string
+  offer: string
+  code?: string
+  howTo: string
+  expires?: string
+  url: string
 }
 
 export interface Investor {

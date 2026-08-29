@@ -12,6 +12,8 @@ export const TEAM: TeamMember[] = [
     headline: 'Director @ Accelerate ME · Operations @ Entrepreneurs First · Student at UoM',
     focus:
       'Runs Cohort 13 end to end. Previously a Programme Associate on the cohort that broke AMe application and attendance records.',
+    achievement:
+      "Directs the UK's leading student-led accelerator — 210+ founders supported, £65m+ in follow-on funding raised by alumni.",
     helpWith: ['accelerator place', 'programme', 'investor intros', 'cohort selection'],
     linkedin: 'https://linkedin.com/in/barnaby-pettifer',
   },
@@ -23,19 +25,10 @@ export const TEAM: TeamMember[] = [
       'Head of Programme @ AccelerateME · CS @ UoM + Scholar · Co-chair @ IBM Z · YC / HackEurope / ETH Oxford hackathon winner',
     focus:
       'Owns the cohort experience week to week: sessions, mentors and founder accountability. Ex system analyst, founding engineer of QuantumProofOps.',
+    achievement:
+      'Winner of YC, HackEurope and ETH Oxford hackathons; founding engineer of QuantumProofOps.',
     helpWith: ['programme', 'technical cofounder', 'hackathon strategy', 'accountability'],
     linkedin: 'https://linkedin.com/in/ecemguvener',
-  },
-  {
-    id: 'team-abdussalam',
-    name: 'Abdussalam Popoola',
-    title: 'Head of Marketing',
-    headline:
-      'Head of Marketing @ Accelerate Me · CTO @ Luminocare · CS @ UoC · Founder in Residence @ Redwood Founders · 4x hackathon winner',
-    focus:
-      'Takes the accelerator to every campus — brand, content and applications. Builds as well as markets: design engineer and startup CTO.',
-    helpWith: ['brand', 'landing pages', 'distribution', 'technical cofounder'],
-    linkedin: 'https://linkedin.com/in/abdussalampopoola',
   },
   {
     id: 'team-nelson',
@@ -45,7 +38,22 @@ export const TEAM: TeamMember[] = [
       'Head of Growth @ AccelerateME · Mechatronics Engineering @ UoM · ex-Team GB athlete · Student Ambassador @ IBM',
     focus:
       'Partnerships, pipeline and the numbers behind cohort growth. Turned a personal project into a paying client engagement; ex technical lead at IBM Z Society.',
+    achievement:
+      'Ex-Team GB athlete; turned a personal project into a paying client engagement while leading IBM Z Society tech.',
     helpWith: ['growth', 'partnerships', 'first customers', 'events'],
     linkedin: 'https://linkedin.com/in/nelson-hamilton',
+  },
+  {
+    id: 'team-abdussalam',
+    name: 'Abdussalam Popoola',
+    title: 'Head of Marketing',
+    headline:
+      'Head of Marketing @ Accelerate Me · CTO @ Luminocare · CS @ UoC · Founder in Residence @ Redwood Founders · 4x hackathon winner',
+    focus:
+      'Takes the accelerator to every campus — brand, content and applications. Builds as well as markets: design engineer and startup CTO.',
+    achievement:
+      '4x hackathon winner and startup CTO (Luminocare) while running marketing for the accelerator.',
+    helpWith: ['brand', 'landing pages', 'distribution', 'technical cofounder'],
+    linkedin: 'https://linkedin.com/in/abdussalampopoola',
   },
 ]

@@ -16,8 +16,8 @@ export default function Team() {
           <article className="grave" key={member.id}>
             <h3>{member.name}</h3>
             <p className="tagline">{member.title}</p>
-            <p className="epitaph">{member.focus}</p>
-            <p className="sub">{member.headline}</p>
+            <p className="epitaph">{member.achievement}</p>
+            <p className="sub">{member.focus}</p>
             <div className="meta">
               <a href={member.linkedin} target="_blank" rel="noreferrer">
                 LinkedIn

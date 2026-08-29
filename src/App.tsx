@@ -1,5 +1,8 @@
 import { HashRouter, NavLink, Route, Routes } from 'react-router-dom'
+import Directory from './pages/Directory'
 import Graveyard from './pages/Graveyard'
+import People from './pages/People'
+import Simulate from './pages/Simulate'
 import StartupDashboard from './pages/StartupDashboard'
 import StartupDetail from './pages/StartupDetail'
 import SubmitStartup from './pages/SubmitStartup'
@@ -12,24 +15,27 @@ export default function App() {
       <div className="shell">
         <header className="masthead">
           <NavLink to="/" className="brand">
-            <span className="mark">🪦</span>
+            <span className="mark">⚡</span>
             <span>
-              Startup Graveyard
+              Founder OS
               <small>by Accelerate Me</small>
             </span>
           </NavLink>
           <nav className="nav">
             <NavLink to="/" end>
-              Graveyard
+              Directory
             </NavLink>
-            <NavLink to="/talent">Directory</NavLink>
-            <NavLink to="/bury">Bury an idea</NavLink>
-            <NavLink to="/team">Team</NavLink>
+            <NavLink to="/people">People</NavLink>
+            <NavLink to="/ask">Ask Founder OS</NavLink>
+            <NavLink to="/graveyard">Graveyard</NavLink>
           </nav>
         </header>
 
         <Routes>
-          <Route path="/" element={<Graveyard />} />
+          <Route path="/" element={<Directory />} />
+          <Route path="/people" element={<People />} />
+          <Route path="/ask" element={<Simulate />} />
+          <Route path="/graveyard" element={<Graveyard />} />
           <Route path="/grave/:id" element={<StartupDetail />} />
           <Route path="/dashboard/:id" element={<StartupDashboard />} />
           <Route path="/bury" element={<SubmitStartup />} />
@@ -38,8 +44,8 @@ export default function App() {
         </Routes>
 
         <footer className="footer">
-          Accelerate Me — student-led accelerator, 12 years of cohorts, alumni and mentors.
-          Founder OS matches every grave against that database. Nothing here leaves your browser.
+          Founder OS by Accelerate Me — twelve years of cohorts, alumni and mentors. Every answer is
+          matched against that database. Nothing here leaves your browser.
         </footer>
       </div>
     </HashRouter>

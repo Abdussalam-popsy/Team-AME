@@ -5,7 +5,7 @@ interface Message {
   text: string
 }
 
-const HOUSR_ANSWER = `Simulated against 12 years of Accelerate ME cohorts. Closest precedent: Housr (cohort 6) — property software, founded by Harry Panter.
+const ANSWER = `Simulated against 12 years of Accelerate ME cohorts. Closest precedent: Housr (cohort 6) — property software, founded by Harry Panter.
 
 Most likely outcome (based on what Housr did):
 
@@ -18,24 +18,6 @@ Most likely outcome (based on what Housr did):
 ⚠️ The likelihood — property management software is a crowded sector: most cohort attempts stall at the pilot stage without a distribution wedge. Housr's wedge was students — a market they lived in. Yours needs to be as unfair.
 
 Next step: talk to the AME team (People → AME team) about a cohort place, and open Housr in the Directory for the full trail.`
-
-const GENERIC_ANSWER = (idea: string) =>
-  `Simulated against 12 years of Accelerate ME cohorts. No single dominant precedent for "${idea}" — outcomes split three ways:
-
-📈 Top decile — the Arcube path (cohort 9): $1.5m seed, $1.6m revenue generated for a single enterprise customer. Requires an unfair distribution wedge and a technical co-founder from day one.
-
-😐 Median — launched, some users, dormant within 18 months when the team graduates. This is the most likely single outcome.
-
-⚠️ Failure mode — never reaching a paying customer. The strongest predictor in our data is starting without anyone who can sell.
-
-Next step: search the Directory for the closest existing startup — someone in a past cohort has probably tried this — and ask the AME team who to talk to.`
-
-const PROPERTY_WORDS = ['property', 'landlord', 'tenant', 'rent', 'housing', 'real estate', 'lettings', 'housr']
-
-function answerFor(prompt: string): string {
-  const p = prompt.toLowerCase()
-  return PROPERTY_WORDS.some((w) => p.includes(w)) ? HOUSR_ANSWER : GENERIC_ANSWER(prompt.trim())
-}
 
 export default function Simulate() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -53,9 +35,8 @@ export default function Simulate() {
     setMessages((m) => [...m, { role: 'user', text: prompt }])
     setInput('')
     setThinking(true)
-    const reply = answerFor(prompt)
     setTimeout(() => {
-      setMessages((m) => [...m, { role: 'os', text: reply }])
+      setMessages((m) => [...m, { role: 'os', text: ANSWER }])
       setThinking(false)
     }, 2600)
   }

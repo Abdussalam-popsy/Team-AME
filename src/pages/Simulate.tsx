@@ -53,11 +53,6 @@ export default function Simulate() {
 
       <div className="chat">
         <div className="chat-log">
-          {messages.length === 0 && !thinking && (
-            <div className="chat-hint">
-              Try: <em>“I want to build a property management software”</em>
-            </div>
-          )}
           {messages.map((message, i) => (
             <div key={i} className={`chat-msg ${message.role}`}>
               <span className="chat-who">{message.role === 'user' ? 'You' : 'Founder OS'}</span>
@@ -86,7 +81,6 @@ export default function Simulate() {
             onKeyDown={(event) => {
               if (event.key === 'Enter') send()
             }}
-            placeholder="I want to build a property management software…"
             aria-label="Describe your startup idea"
           />
           <button type="button" className="btn primary" onClick={send} disabled={thinking}>

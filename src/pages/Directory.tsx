@@ -58,7 +58,7 @@ export default function Directory() {
                 <h3>{s.name}</h3>
                 <p className="tagline">{s.tagline}</p>
                 <div className="meta">
-                  <span className={`tag ${s.status === 'active' || s.status === 'raising' ? 'reviving' : 'dormant'}`}>
+                  <span className={`tag ${s.status === 'active' || s.status === 'raising' ? 'live' : 'inactive'}`}>
                     {STATUS_LABEL[s.status]}
                   </span>
                   <span>{s.cohort}</span>

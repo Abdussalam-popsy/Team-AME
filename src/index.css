@@ -279,6 +279,19 @@ button {
   border-color: var(--accent-dim);
 }
 
+.tag.live {
+  color: #06130a;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+.tag.inactive {
+  color: #f28b82;
+  border-color: #5c2b27;
+  background: rgba(242, 139, 130, 0.08);
+}
+
 /* score */
 .score {
   display: flex;

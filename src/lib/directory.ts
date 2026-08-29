@@ -1,6 +1,6 @@
 import { COHORT_STARTUPS, NOTABLE_PEOPLE } from '../data/cohorts'
 import { TEAM } from '../data/team'
-import { SEED_STARTUPS } from '../data/startups'
+import { loadStartups } from './storage'
 
 export interface DirectoryStartup {
   id: string
@@ -81,11 +81,8 @@ function generatedStartups(count: number): DirectoryStartup[] {
   return out
 }
 
-let startupCache: DirectoryStartup[] | null = null
-
 /** ~1,000 startups: real AME cohort companies and graveyard entries first, generated fill after. */
 export function directoryStartups(): DirectoryStartup[] {
-  if (startupCache) return startupCache
   const real: DirectoryStartup[] = COHORT_STARTUPS.map((s, i) => ({
     id: `ame-s-${i}`,
     name: s.name,
@@ -97,7 +94,7 @@ export function directoryStartups(): DirectoryStartup[] {
     note: s.note,
     real: true,
   }))
-  const graveyard: DirectoryStartup[] = SEED_STARTUPS.map((s) => ({
+  const graveyard: DirectoryStartup[] = loadStartups().map((s) => ({
     id: s.id,
     name: s.name,
     tagline: s.tagline,
@@ -107,9 +104,10 @@ export function directoryStartups(): DirectoryStartup[] {
     status: s.status === 'reviving' ? 'active' : 'dormant',
     real: true,
   }))
-  const all = [...real, ...graveyard, ...generatedStartups(DIRECTORY_SIZE - real.length - graveyard.length)]
-  startupCache = all.map((s, i) => (i < 100 ? { ...s, status: 'active' } : s))
-  return startupCache
+  const all = [...graveyard, ...real, ...generatedStartups(DIRECTORY_SIZE - real.length - graveyard.length)]
+  return all.map((s, i) =>
+    i < 100 && !s.id.startsWith('s-') ? { ...s, status: 'active' } : s,
+  )
 }
 
 let peopleCache: Person[] | null = null

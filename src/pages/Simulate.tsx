@@ -53,6 +53,7 @@ export default function Simulate() {
 
       <div className="chat">
         <div className="chat-log">
+          {messages.length === 0 && !thinking && <div className="chat-hint">Type your startup idea</div>}
           {messages.map((message, i) => (
             <div key={i} className={`chat-msg ${message.role}`}>
               <span className="chat-who">{message.role === 'user' ? 'You' : 'Founder OS'}</span>

@@ -73,6 +73,8 @@ export type MustHaveAssessment = {
   requirement: string;
   met: boolean | 'partial';
   evidence: string;
+  /** The page or profile the assessment is drawn from. `met` always has one. */
+  sourceUrl?: string;
 };
 
 export type CandidateDetail = {

@@ -1,7 +1,9 @@
-import { assertWithinBudget, recordToolCall } from '../budget.js';
+import { assertWithinBudget, assertWithinDeadline, recordToolCall } from '../budget.js';
 import { cacheKey, readCache, writeCache } from '../cache.js';
 
 const BASE = 'https://code.deepline.com';
+/** Provider searches are the slowest calls we make, but not minutes-slow. */
+const TIMEOUT_MS = 60_000;
 
 /**
  * Verified unit costs (USD), used only for the pre-flight budget estimate; the
@@ -85,7 +87,10 @@ export async function callDeepline<T = unknown>(
   }
 
   const estimate = COST_ESTIMATE_USD[tool] ?? 0.05;
-  if (opts.runId) assertWithinBudget(opts.runId, tool, estimate);
+  if (opts.runId) {
+    assertWithinDeadline(opts.runId);
+    assertWithinBudget(opts.runId, tool, estimate);
+  }
 
   const started = Date.now();
   let attempt = 0;
@@ -100,7 +105,7 @@ export async function callDeepline<T = unknown>(
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ payload }),
-        signal: AbortSignal.timeout(opts.timeoutMs ?? 120_000),
+        signal: AbortSignal.timeout(opts.timeoutMs ?? TIMEOUT_MS),
       });
 
       const body = (await res.json()) as ExecuteResponse;

@@ -2,7 +2,12 @@ import express from 'express';
 import { z } from 'zod';
 import { DEFAULT_BUDGET_USD, type HiringInput, type VcInput } from '../shared/types.js';
 import { RUBRICS } from '../shared/rubric.js';
-import { BudgetExceededError, remainingBudget } from './budget.js';
+import {
+  BudgetExceededError,
+  RunDeadlineError,
+  remainingBudget,
+  startRunClock,
+} from './budget.js';
 import { runHiringPipeline } from './pipeline/hiring.js';
 import { runVcPipeline } from './pipeline/vc.js';
 import { resolveEmail } from './providers/deepline.js';
@@ -91,6 +96,7 @@ app.post('/api/runs', (req, res) => {
 
   void (async () => {
     setRunStatus(runId, 'running');
+    startRunClock(runId);
     try {
       if (kind === 'vc') {
         await runVcPipeline(runId, input as VcInput, pilot, forceRefresh);
@@ -100,10 +106,11 @@ app.post('/api/runs', (req, res) => {
       setRunStatus(runId, isCancelled(runId) ? 'cancelled' : 'done');
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      if (err instanceof BudgetExceededError) {
-        // Partial results are kept: the run stops at the cap rather than
-        // discarding the rows it already paid for.
-        upsertStep(runId, 99, 'Budget cap reached', 'failed', message);
+      if (err instanceof BudgetExceededError || err instanceof RunDeadlineError) {
+        // Partial results are kept: the run stops at the cap or the wall-clock
+        // ceiling rather than discarding the rows it already paid for.
+        const stop = err instanceof BudgetExceededError ? 'Budget cap reached' : 'Time cap reached';
+        upsertStep(runId, 99, stop, 'failed', message);
         setRunStatus(runId, 'done', message);
       } else {
         setRunStatus(runId, 'failed', message);

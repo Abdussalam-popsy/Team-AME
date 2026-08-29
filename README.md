@@ -41,14 +41,22 @@ Keys are read only by the API process; the browser never sees them.
    it is rewritten once and flagged if it still doesn't.
 6. **Finalist emails** — resolved only for rows a human ticks, because they bill per lookup.
 
+A hiring must-have is `met` only with a citable source: structured employment data, the
+candidate's own title/headline, or a public page that mentions the term near their name. Our
+Crustdata account cannot return skill lists, so a provider skill-filter match proves only that one
+of several skills is listed somewhere — it stays `partial` when public search turns up nothing, and
+an attempted corroboration that came back empty never promotes it.
+
 Two guards sit at the persistence boundary. A field in `detail_json` with no matching evidence row
 is written as `unknown` rather than persisted, and model-returned evidence IDs are validated
 against the stored IDs.
 
 ## Cost control
 
-Each run has a hard cap (`$2` VC, `$5` hiring) enforced from recorded per-call costs; hitting it
-stops the run and keeps the partial results already paid for. Every provider call is cached by
+Each run has a hard cap (`$2` VC, `$5` hiring) enforced from recorded per-call costs, and a 240s
+wall-clock ceiling; hitting either stops the run and keeps the partial results already paid for.
+Every provider call has a bounded timeout (Deepline 60s, OpenAI 45s, Tavily 20s) and retries once
+on a transient failure only, so no single call can stall a run. Every provider call is cached by
 `provider + tool + normalized input hash`:
 
 | Cached work | TTL |

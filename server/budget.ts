@@ -37,6 +37,34 @@ export function assertWithinBudget(runId: string, tool: string, estimateUsd: num
   }
 }
 
+/**
+ * Wall-clock ceiling, so a slow provider can never turn a demo run into an
+ * open-ended wait. Like the budget cap, it stops the run and keeps whatever
+ * rows are already paid for.
+ */
+export const RUN_DEADLINE_MS = 240_000;
+
+export class RunDeadlineError extends Error {
+  constructor() {
+    super(`run exceeded its ${Math.round(RUN_DEADLINE_MS / 1000)}s wall-clock ceiling`);
+    this.name = 'RunDeadlineError';
+  }
+}
+
+const deadlines = new Map<string, number>();
+
+export function startRunClock(runId: string): void {
+  deadlines.set(runId, Date.now() + RUN_DEADLINE_MS);
+}
+
+export function assertWithinDeadline(runId: string): void {
+  const due = deadlines.get(runId);
+  if (due !== undefined && Date.now() > due) {
+    deadlines.delete(runId);
+    throw new RunDeadlineError();
+  }
+}
+
 export function recordToolCall(args: {
   runId: string | null;
   provider: string;

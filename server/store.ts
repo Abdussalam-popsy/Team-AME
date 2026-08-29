@@ -95,7 +95,10 @@ export function saveRow(args: {
   // Field-level citation enforcement happens here, on the write path, so an
   // uncited value can never be persisted or rendered.
   const { detail, dropped } = enforceFieldCitations(args.detail, evidence);
-  const flags = dropped.length > 0 ? [...args.flags, `${dropped.length} uncited field(s) hidden`] : args.flags;
+  const flags =
+    dropped.length > 0
+      ? [...args.flags, `uncited, shown as unknown: ${dropped.slice(0, 4).join(', ')}`]
+      : args.flags;
 
   db.prepare(
     `INSERT INTO result_row

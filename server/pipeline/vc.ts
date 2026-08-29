@@ -5,7 +5,7 @@ import type {
   RoundProfile,
   VcInput,
 } from '../../shared/types.js';
-import { BudgetExceededError } from '../budget.js';
+import { BudgetExceededError, RunDeadlineError } from '../budget.js';
 import {
   aviatoCompanySearch,
   aviatoOutboundInvestments,
@@ -14,7 +14,7 @@ import {
   type CallOptions,
 } from '../providers/deepline.js';
 import { completeJson } from '../providers/openai.js';
-import { tavilySearch } from '../providers/tavily.js';
+import { tavilySearch, type TavilyResult } from '../providers/tavily.js';
 import { disqualifyPartner } from '../scoring/disqualify.js';
 import { draftOutreach, scoreEntity } from '../scoring/score.js';
 import { finalizeRow, isCancelled, rankRows, saveRow, upsertStep } from '../store.js';
@@ -84,8 +84,11 @@ async function discover(input: VcInput, opts: CallOptions, limit: number): Promi
         'Prefer named individual partners over firms with no person attached; if a result names a',
         'firm but no person, set partnerName to "" and still return the firm.',
         `Return at most ${limit} entries, most relevant first.`,
-        'competitorKeywords: 4-8 lowercase terms that would appear in the description of a company',
-        'building the SAME product as the sender (used to flag portfolio conflicts).',
+        'competitorKeywords: 4-8 lowercase PRODUCT terms that would appear in the description of a',
+        'company building the same product as the sender — what the software does, e.g.',
+        '"route optimization", "load matching". Never industry or market words like "logistics",',
+        '"trucking" or "supply chain": those describe everyone in the market, and these terms are',
+        'used to disqualify a firm for a portfolio conflict.',
       ].join('\n'),
       user: [
         `Sender: ${input.companyDescription}`,
@@ -146,6 +149,59 @@ async function resolvePartner(
   );
 }
 
+const THESIS_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['summary', 'quote', 'sourceUrl'],
+  properties: {
+    summary: { type: 'string' },
+    quote: { type: 'string' },
+    sourceUrl: { type: 'string' },
+  },
+} as const;
+
+function hostOf(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
+
+/**
+ * The first search result that happens to contain prose is usually fund-raising
+ * news, not a thesis, so the summary is extracted and must be backed by a quote
+ * from the page it came from. Returns empty fields when no page states one.
+ */
+async function extractThesis(
+  partnerName: string,
+  firmName: string,
+  hits: TavilyResult[],
+  opts: CallOptions,
+): Promise<{ summary: string; quote: string; sourceUrl: string }> {
+  const corpus = hits
+    .map((h) => `[${h.url}] ${h.title}\n  ${cleanText(h.content, 800) ?? ''}`)
+    .join('\n');
+  if (!corpus.trim()) return { summary: '', quote: '', sourceUrl: '' };
+
+  return completeJson<{ summary: string; quote: string; sourceUrl: string }>(
+    'openai_extract_thesis',
+    {
+      schemaName: 'thesis_extract',
+      schema: THESIS_SCHEMA,
+      system: [
+        `State what ${partnerName} of ${firmName} invests in, in one or two sentences, using only`,
+        'the supplied pages. quote must be a verbatim span from the page that supports it, and',
+        'sourceUrl the page it came from.',
+        'Return empty strings for all three fields if the pages only cover fund announcements,',
+        'headcount news, or generic firm marketing rather than what they look for in a company.',
+      ].join('\n'),
+      user: `PAGES:\n${corpus}`,
+    },
+    opts,
+  );
+}
+
 /** Picks the Aviato entity that actually matches, rather than the first hit. */
 function pickFirm(candidates: AviatoCompany[], firmName: string): AviatoCompany | undefined {
   const target = firmName.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -200,6 +256,33 @@ const GENERIC_TERMS = new Set([
   'enterprise',
 ]);
 
+/**
+ * Market categories, not products. Two of these matching means the portfolio
+ * company sells into the same industry, which is adjacency worth points — it is
+ * not a competitor, and must never trip the conflict disqualifier. Without this
+ * split a freight news site counted as a routing competitor.
+ */
+const MARKET_TERMS = new Set([
+  'logistics',
+  'trucking',
+  'freight',
+  'transportation',
+  'shipping',
+  'supply chain',
+  'supply',
+  'chain',
+  'fleet',
+  'carrier',
+  'trucks',
+  'mobility',
+]);
+
+/**
+ * A competitor a firm backed years ago is portfolio history, not a live
+ * conflict for the round being raised now.
+ */
+const CONFLICT_WINDOW_MONTHS = 48;
+
 function buildOverlap(
   investments: AviatoInvestment[],
   input: VcInput,
@@ -224,7 +307,10 @@ function buildOverlap(
       'warehouse',
     ]),
   ];
-  const competitorTerms = competitorKeywords.map((k) => k.toLowerCase()).filter(Boolean);
+  // Product-level terms only: a market term cannot contribute to a conflict.
+  const competitorTerms = competitorKeywords
+    .map((k) => k.toLowerCase().trim())
+    .filter((k) => k.length > 3 && !MARKET_TERMS.has(k) && !GENERIC_TERMS.has(k));
 
   const out: PortfolioOverlap[] = [];
   for (const inv of investments) {
@@ -237,13 +323,18 @@ function buildOverlap(
     const adjacentHits = adjacentTerms.filter((t) => haystack.includes(t));
     if (competitorHits.length === 0 && adjacentHits.length === 0) continue;
 
-    const conflict = competitorHits.length >= 2;
+    const age = monthsAgo(inv.date?.slice(0, 10));
+    const sameProduct = competitorHits.length >= 2;
+    const conflict = sameProduct && (age === undefined || age <= CONFLICT_WINDOW_MONTHS);
     out.push({
       company: co.name,
       url: httpsUrl(co.URLs?.website ?? co.URLs?.crunchbase),
       why: conflict
-        ? `builds in the same space (${competitorHits.slice(0, 3).join(', ')})`
-        : `adjacent: ${[...new Set(adjacentHits)].slice(0, 3).join(', ')}`,
+        ? `builds the same product (${competitorHits.slice(0, 3).join(', ')})`
+        : sameProduct
+          ? `same product space but the investment is ${Math.round((age ?? 0) / 12)}y old ` +
+            `(${competitorHits.slice(0, 3).join(', ')})`
+          : `adjacent: ${[...new Set(adjacentHits)].slice(0, 3).join(', ')}`,
       amountUsd: inv.totalAmountRaised,
       date: inv.date?.slice(0, 10),
       conflict,
@@ -406,15 +497,15 @@ export async function runVcPipeline(
           `"${partner.name}" ${firm.name} investment thesis what we look for`,
           { ...opts, maxResults: 4 },
         );
-        const best = thesisHits.find((h) => cleanText(h.content));
-        if (best) {
-          thesisSummary = cleanText(best.content, 400) ?? '';
+        const extracted = await extractThesis(partner.name, firm.name, thesisHits, opts);
+        if (extracted.summary && extracted.sourceUrl) {
+          thesisSummary = extracted.summary;
           evidence.push({
             field: 'thesis.summary',
-            claim: `${partner.name}'s stated focus, from ${new URL(best.url).hostname}`,
+            claim: `${partner.name}'s stated investing focus, from ${hostOf(extracted.sourceUrl)}`,
             sourceKind: 'tavily',
-            sourceUrl: best.url,
-            snippet: thesisSummary,
+            sourceUrl: extracted.sourceUrl,
+            snippet: extracted.quote,
           });
         }
       }
@@ -446,7 +537,7 @@ export async function runVcPipeline(
         flags: overlap.some((o) => o.conflict) ? ['portfolio conflict'] : [],
       });
     } catch (err) {
-      if (err instanceof BudgetExceededError) throw err;
+      if (err instanceof BudgetExceededError || err instanceof RunDeadlineError) throw err;
       skipped += 1;
       upsertStep(
         runId,

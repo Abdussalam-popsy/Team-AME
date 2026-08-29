@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { recordToolCall } from '../budget.js';
+import { assertWithinDeadline, recordToolCall } from '../budget.js';
 import { cacheKey, readCache, writeCache } from '../cache.js';
 import { ProviderError, type CallOptions } from './deepline.js';
 
@@ -7,11 +7,18 @@ const MODEL = 'gpt-4.1';
 /** Published gpt-4.1 pricing, USD per token. */
 const IN_USD = 2 / 1_000_000;
 const OUT_USD = 8 / 1_000_000;
+const TIMEOUT_MS = 45_000;
 
 let client: OpenAI | null = null;
 function openai(): OpenAI {
   if (!process.env.OPENAI_API_KEY) throw new ProviderError('OPENAI_API_KEY is not set', false);
-  client ??= new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  // One retry on transient errors, bounded per-request timeout: a slow model
+  // call must not be able to stall a run.
+  client ??= new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    maxRetries: 1,
+    timeout: TIMEOUT_MS,
+  });
   return client;
 }
 
@@ -47,6 +54,8 @@ export async function completeJson<T>(
     }
   }
 
+  if (opts.runId) assertWithinDeadline(opts.runId);
+
   const started = Date.now();
   try {
     const res = await openai().chat.completions.create(
@@ -62,7 +71,7 @@ export async function completeJson<T>(
           json_schema: { name: args.schemaName, strict: true, schema: args.schema },
         },
       },
-      { timeout: opts.timeoutMs ?? 90_000 },
+      { timeout: opts.timeoutMs ?? TIMEOUT_MS },
     );
 
     const usage = res.usage;

@@ -142,6 +142,14 @@ function CandidateFacts({ detail }: { detail: CandidateDetail }) {
               {m.met === true ? 'met' : m.met === 'partial' ? 'partial' : 'not evidenced'}
             </span>
             {m.requirement} — {m.evidence}
+            {m.sourceUrl && m.sourceUrl !== 'unknown' && (
+              <>
+                {' '}
+                <a href={m.sourceUrl} target="_blank" rel="noreferrer">
+                  source
+                </a>
+              </>
+            )}
           </li>
         ))}
       </ul>

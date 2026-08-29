@@ -3,6 +3,7 @@ import Graveyard from './pages/Graveyard'
 import StartupDetail from './pages/StartupDetail'
 import SubmitStartup from './pages/SubmitStartup'
 import TalentDatabase from './pages/TalentDatabase'
+import Team from './pages/Team'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             </NavLink>
             <NavLink to="/talent">Talent database</NavLink>
             <NavLink to="/bury">Bury an idea</NavLink>
+            <NavLink to="/team">Team</NavLink>
           </nav>
         </header>
 
@@ -30,6 +32,7 @@ export default function App() {
           <Route path="/grave/:id" element={<StartupDetail />} />
           <Route path="/bury" element={<SubmitStartup />} />
           <Route path="/talent" element={<TalentDatabase />} />
+          <Route path="/team" element={<Team />} />
         </Routes>
 
         <footer className="footer">

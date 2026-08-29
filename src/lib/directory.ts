@@ -107,7 +107,8 @@ export function directoryStartups(): DirectoryStartup[] {
     status: s.status === 'reviving' ? 'active' : 'dormant',
     real: true,
   }))
-  startupCache = [...real, ...graveyard, ...generatedStartups(DIRECTORY_SIZE - real.length - graveyard.length)]
+  const all = [...real, ...graveyard, ...generatedStartups(DIRECTORY_SIZE - real.length - graveyard.length)]
+  startupCache = all.map((s, i) => (i < 100 ? { ...s, status: 'active' } : s))
   return startupCache
 }
 

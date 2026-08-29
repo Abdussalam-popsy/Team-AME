@@ -1,17 +1,17 @@
 import type { TeamMember } from '../lib/types'
 
 /**
- * The Accelerate Me team running Cohort 13. Details from their public
- * LinkedIn profiles and AMe's team announcement.
+ * The Accelerate ME team running Cohort 13. Details from their public
+ * LinkedIn profiles and AME's team announcement.
  */
 export const TEAM: TeamMember[] = [
   {
     id: 'team-barnaby',
     name: 'Barnaby Pettifer',
-    title: 'Director of AMe',
+    title: 'Director of AME',
     headline: 'Director @ Accelerate ME · Operations @ Entrepreneurs First · Student at UoM',
     focus:
-      'Runs Cohort 13 end to end. Previously a Programme Associate on the cohort that broke AMe application and attendance records.',
+      'Runs Cohort 13 end to end. Previously a Programme Associate on the cohort that broke AME application and attendance records.',
     achievement:
       "Directs the UK's leading student-led accelerator — 210+ founders supported, £65m+ in follow-on funding raised by alumni.",
     helpWith: ['accelerator place', 'programme', 'investor intros', 'cohort selection'],
@@ -48,7 +48,7 @@ export const TEAM: TeamMember[] = [
     name: 'Abdussalam Popoola',
     title: 'Head of Marketing',
     headline:
-      'Head of Marketing @ Accelerate Me · CTO @ Luminocare · CS @ UoC · Founder in Residence @ Redwood Founders · 4x hackathon winner',
+      'Head of Marketing @ Accelerate ME · CTO @ Luminocare · CS @ UoC · Founder in Residence @ Redwood Founders · 4x hackathon winner',
     focus:
       'Takes the accelerator to every campus — brand, content and applications. Builds as well as markets: design engineer and startup CTO.',
     achievement:

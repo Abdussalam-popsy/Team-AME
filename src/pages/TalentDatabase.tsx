@@ -19,7 +19,7 @@ const BLURB: Record<TabId, string> = {
   everyone:
     'Every startup and idea in the graveyard, alive or buried. Open one to see what killed it and what it needs.',
   active: 'Startups still moving — dormant or already reviving. These are the ones you can join now.',
-  team: 'The people running Accelerate Me. Bring them the gap you cannot close yourself.',
+  team: 'The people running Accelerate ME. Bring them the gap you cannot close yourself.',
   contract: 'Available for paid project work — the fastest way to unblock a startup without equity.',
   intern: 'Students who want their first real build. Cheap, fast, hungry.',
 }
@@ -64,7 +64,7 @@ export default function TalentDatabase() {
       <section className="hero">
         <h1>The reason this works.</h1>
         <p>
-          Every startup in the graveyard, and the Accelerate Me people who can revive one — twelve
+          Every startup in the graveyard, and the Accelerate ME people who can revive one — twelve
           years of cohorts, alumni and mentors. Founder OS never gives generic advice: every gap it
           finds resolves to something in here.
         </p>
@@ -121,7 +121,7 @@ export default function TalentDatabase() {
                 <p className="tagline">{member.title}</p>
                 <p className="epitaph">{member.focus}</p>
                 <div className="meta">
-                  <span className="tag reviving">AMe team</span>
+                  <span className="tag reviving">AME team</span>
                   <a href={member.linkedin} target="_blank" rel="noreferrer">
                     LinkedIn
                   </a>

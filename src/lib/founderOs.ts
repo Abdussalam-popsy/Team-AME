@@ -60,7 +60,7 @@ function matchInvestors(startup: Startup, limit = 2): Investor[] {
 
 /**
  * Founder OS: acts as the missing CEO. It reads the grave, names what is
- * missing, and points at a specific human in the AMe database for each gap.
+ * missing, and points at a specific human in the AME database for each gap.
  */
 export function diagnose(startup: Startup): Diagnosis {
   const gaps: Gap[] = []
@@ -99,7 +99,7 @@ export function diagnose(startup: Startup): Diagnosis {
       diagnosis:
         'Solo founders stall on the first hard week. There is no one to carry the momentum when you cannot.',
       prescription:
-        'Run a 4-week paid trial project with one AMe match before signing any equity. Vesting from day one.',
+        'Run a 4-week paid trial project with one AME match before signing any equity. Vesting from day one.',
       talent: matchTalent(startup, ['cto', 'engineer', 'growth', 'ops'], ['cofounder']),
       investors: [],
     })
@@ -112,7 +112,7 @@ export function diagnose(startup: Startup): Diagnosis {
       title: 'No insider credibility',
       severity: 'major',
       diagnosis: `${startup.sector} buyers will not take a meeting without ${domainNeed}.`,
-      prescription: 'Add an AMe mentor as a formal advisor (0.25–0.5% over 2 years) and cite them in every pitch.',
+      prescription: 'Add an AME mentor as a formal advisor (0.25–0.5% over 2 years) and cite them in every pitch.',
       talent: matchTalent(startup, ['domain', 'ops'], ['advisor']),
       investors: [],
     })
@@ -204,7 +204,7 @@ function nextMoves(startup: Startup, gaps: Gap[]): string[] {
   })
   moves.push(
     startup.monthlyRevenueGbp > 0
-      ? `Set one revival milestone: double £${startup.monthlyRevenueGbp}/mo in 30 days, then claim the AMe Student Seed Pool.`
+      ? `Set one revival milestone: double £${startup.monthlyRevenueGbp}/mo in 30 days, then claim the AME Student Seed Pool.`
       : 'Set one revival milestone: 10 paying or 100 active users in 30 days, then re-open this grave.',
   )
   return moves.slice(0, 3)

@@ -4,7 +4,7 @@ export default function Team() {
   return (
     <>
       <section className="hero">
-        <h1>The Accelerate Me team.</h1>
+        <h1>The Accelerate ME team.</h1>
         <p>
           Who you actually work with, depending on the track you choose. Student-led, Manchester
           based, running the UK&apos;s largest student startup accelerator.

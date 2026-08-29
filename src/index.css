@@ -1,15 +1,18 @@
 :root {
-  --bg: #0a0c10;
-  --bg-soft: #11151c;
-  --panel: #161b24;
-  --line: #232b38;
-  --text: #e8ecf2;
-  --muted: #8b96a8;
-  --accent: #7ee0b8;
-  --accent-dim: #2c6d59;
+  --bg: #0b2203;
+  --bg-soft: #0f2c06;
+  --panel: #12350a;
+  --line: #224a15;
+  --text: #f7f5ff;
+  --muted: #9fb894;
+  --accent: #aaf5a1;
+  --accent-dim: #4a8c3f;
+  --lilac: #cbc0fc;
   --warn: #f2b45c;
   --crit: #f2717b;
   --radius: 14px;
+  --font-display: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   color-scheme: dark;
 }
 
@@ -26,10 +29,10 @@ body,
 body {
   margin: 0;
   background:
-    radial-gradient(1100px 500px at 50% -10%, #16202b 0%, transparent 70%),
+    radial-gradient(1100px 500px at 50% -10%, #16400a 0%, transparent 70%),
     var(--bg);
   color: var(--text);
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: var(--font-display);
   line-height: 1.55;
 }
 
@@ -63,21 +66,23 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.01em;
 }
 
-.brand span.mark {
-  font-size: 22px;
+.brand .mark {
+  width: 48px;
+  height: auto;
 }
 
 .brand small {
   display: block;
-  color: var(--muted);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
 }
 
 .nav {
@@ -90,7 +95,8 @@ button {
   padding: 8px 14px;
   border-radius: 999px;
   color: var(--muted);
-  font-size: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
   border: 1px solid transparent;
 }
 
@@ -113,6 +119,7 @@ button {
 
 .hero h1 {
   font-size: clamp(30px, 5vw, 46px);
+  font-weight: 800;
   line-height: 1.08;
   margin: 0 0 12px;
   letter-spacing: -0.03em;
@@ -133,13 +140,16 @@ button {
 
 .stat b {
   display: block;
-  font-size: 22px;
+  color: var(--accent);
+  font-size: 26px;
+  font-weight: 800;
 }
 
 .stat span {
   color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: lowercase;
   letter-spacing: 0.06em;
 }
 
@@ -162,7 +172,7 @@ button {
 .btn.primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #06251c;
+  color: #0b2203;
 }
 
 .btn.primary:hover {
@@ -192,7 +202,7 @@ button {
 }
 
 .chip.on {
-  color: #06251c;
+  color: #0b2203;
   background: var(--accent);
   border-color: var(--accent);
 }
@@ -249,7 +259,8 @@ button {
   padding: 3px 9px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  text-transform: uppercase;
+  font-family: var(--font-mono);
+  text-transform: lowercase;
   letter-spacing: 0.05em;
   font-size: 11px;
 }
@@ -400,7 +411,8 @@ button {
 }
 
 .person .handle {
-  color: var(--accent);
+  color: var(--lilac);
+  font-family: var(--font-mono);
   font-size: 12px;
 }
 
@@ -437,10 +449,11 @@ fieldset.field {
 .field label,
 .field legend {
   display: block;
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   color: var(--muted);
   margin-bottom: 6px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   letter-spacing: 0.05em;
 }
 
@@ -477,7 +490,8 @@ fieldset.field {
 
 .footer {
   color: var(--muted);
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   border-top: 1px solid var(--line);
   padding-top: 18px;
   margin-top: 40px;
@@ -534,6 +548,7 @@ fieldset.field {
 
 .chat-who {
   color: var(--muted);
+  font-family: var(--font-mono);
   font-size: 12px;
 }
 
@@ -591,6 +606,17 @@ fieldset.field {
 
 .chat-input input {
   flex: 1;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  color: var(--text);
+  font: inherit;
+}
+
+.chat-input input:focus {
+  outline: 2px solid var(--accent-dim);
+  outline-offset: 1px;
 }
 
 @media (max-width: 560px) {

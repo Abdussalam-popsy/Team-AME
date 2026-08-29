@@ -37,7 +37,7 @@ export const SEED_STARTUPS: Startup[] = [
     monthlyRevenueGbp: 140,
     runwayMonths: 1,
     hasRaised: false,
-    submittedBy: 'AMe 2024 cohort',
+    submittedBy: 'AME 2024 cohort',
     hackathon: 'HackLondon 2025',
   },
   {
@@ -75,7 +75,7 @@ export const SEED_STARTUPS: Startup[] = [
     monthlyRevenueGbp: 310,
     runwayMonths: 2,
     hasRaised: false,
-    submittedBy: 'Solo founder, AMe 2023',
+    submittedBy: 'Solo founder, AME 2023',
   },
   {
     id: 's-shelfsense',
@@ -111,7 +111,7 @@ export const SEED_STARTUPS: Startup[] = [
     monthlyRevenueGbp: 900,
     runwayMonths: 0,
     hasRaised: false,
-    submittedBy: 'AMe 2025 cohort',
+    submittedBy: 'AME 2025 cohort',
     hackathon: 'VibeHack London 2026',
   },
 ]

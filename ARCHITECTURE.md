@@ -1,8 +1,8 @@
 # Startup Graveyard + Founder OS — architecture
 
-Accelerate Me (AMe) is a student-led accelerator with 12 years of cohorts, alumni, mentors and
+Accelerate ME (AME) is a student-led accelerator with 12 years of cohorts, alumni, mentors and
 investor relationships. Every hackathon creates startups that die within weeks. The graveyard turns
-that dead inventory into matched, actionable revivals using the one asset AMe already has that
+that dead inventory into matched, actionable revivals using the one asset AME already has that
 nobody else does: the talent database.
 
 ## The loop
@@ -12,7 +12,7 @@ bury (startup or unbuilt idea)
   → Founder OS diagnoses gaps
     → each gap resolves to a named person (talent DB) or capital route (investor DB)
       → 3 next moves + a revival milestone
-        → milestone hit → status flips to "reviving" → AMe Student Seed Pool
+        → milestone hit → status flips to "reviving" → AME Student Seed Pool
 ```
 
 ## Modules
@@ -20,8 +20,8 @@ bury (startup or unbuilt idea)
 | Path | Responsibility |
 | --- | --- |
 | `src/lib/types.ts` | Domain model: `Startup`, `TalentProfile`, `Investor`, `Gap`, `Diagnosis`. |
-| `src/data/talent.ts` | The AMe talent database (seed slice, 12 profiles). Founder OS matches against it. |
-| `src/data/investors.ts` | Investors and non-dilutive routes, each with the AMe owner of the warm intro. |
+| `src/data/talent.ts` | The AME talent database (seed slice, 12 profiles). Founder OS matches against it. |
+| `src/data/investors.ts` | Investors and non-dilutive routes, each with the AME owner of the warm intro. |
 | `src/data/startups.ts` | Seeded graves — real hackathon failure patterns, anonymised. |
 | `src/lib/founderOs.ts` | The engine. Rules → gaps → matched humans → revival score → next moves. |
 | `src/lib/storage.ts` | `localStorage` persistence: submitted graves + status overrides, merged over seeds. |
@@ -40,7 +40,7 @@ Rules, in the order they kill a company:
 | No one can build it | no `cto`/`engineer`/`data` role | critical | cofounder-available engineers in-sector |
 | No one is selling it | no `ceo`/`sales`/`growth` role | critical | commercial cofounders |
 | Solo founder | `teamSize === 1` | critical | cofounder matches, paid trial before equity |
-| No insider credibility | sector needs `domain` (health/fintech/climate/deeptech) and it is absent | major | AMe mentors as advisors |
+| No insider credibility | sector needs `domain` (health/fintech/climate/deeptech) and it is absent | major | AME mentors as advisors |
 | Built, but nobody came | past `idea` stage with `< 50` users | major | growth + design contractors |
 | Zero runway | `runwayMonths === 0` and never raised | major if revenue, else minor | stage+sector matched investors, grants first |
 | Cofounder wreckage | `causeOfDeath === 'cofounder-split'` | major | ops advisors, cap-table cleanup |
@@ -63,13 +63,13 @@ solo founder with paying users scores above a complete team with nobody using th
   (@amara.ok), open to cofounding, built the model behind Cohort 9's winner" is the product.
 - **Client-side only.** No backend, no accounts, no data leaving the browser — a graveyard of
   failures is sensitive, and it also means the demo cannot fail on stage. The talent and investor
-  tables are typed modules, so swapping them for the real AMe API is one adapter, not a rewrite.
+  tables are typed modules, so swapping them for the real AME API is one adapter, not a rewrite.
 - **Grants before equity.** Where there is no revenue, Founder OS routes to non-dilutive money
   rather than pricing a dead cap table.
 
 ## Next (not in this cut)
 
-- Replace `src/data/*.ts` with the live AMe database behind `src/lib/api.ts`; keep `diagnose()` pure.
+- Replace `src/data/*.ts` with the live AME database behind `src/lib/api.ts`; keep `diagnose()` pure.
 - Two-sided consent: talent opt-in per gap type before a founder sees a handle.
 - Revival ledger: track milestones over time so "raised from the dead" is a measured statistic, not
   a status field.

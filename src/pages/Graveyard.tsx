@@ -30,7 +30,7 @@ export default function Graveyard() {
         <p>
           Bury your dead startup or your unbuilt idea. Founder OS reads the grave, acts as the CEO
           you never hired, names exactly what is missing, and pulls the specific person out of the
-          Accelerate Me database who fixes it.
+          Accelerate ME database who fixes it.
         </p>
         <div className="stats">
           <div className="stat">
@@ -43,7 +43,7 @@ export default function Graveyard() {
           </div>
           <div className="stat">
             <b>12 yrs</b>
-            <span>of AMe talent</span>
+            <span>of AME talent</span>
           </div>
         </div>
         <p style={{ marginTop: 22 }}>

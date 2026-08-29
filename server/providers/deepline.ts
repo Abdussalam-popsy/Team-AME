@@ -323,7 +323,9 @@ export async function resolveEmail(
       first_name: person.firstName,
       last_name: person.lastName,
       company: person.company,
-      profile: person.linkedinUrl,
+      // The provider rejects a non-string `profile`, so the key is only sent
+      // when we actually have a profile URL.
+      ...(person.linkedinUrl ? { profile: person.linkedinUrl } : {}),
     },
     opts,
   );

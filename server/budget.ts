@@ -57,10 +57,18 @@ export function startRunClock(runId: string): void {
   deadlines.set(runId, Date.now() + RUN_DEADLINE_MS);
 }
 
+/**
+ * The ceiling applies to the pipeline only. Once the run has finished, later
+ * on-demand work (finalist email resolution on a saved run) must not be
+ * refused because the run is old.
+ */
+export function stopRunClock(runId: string): void {
+  deadlines.delete(runId);
+}
+
 export function assertWithinDeadline(runId: string): void {
   const due = deadlines.get(runId);
   if (due !== undefined && Date.now() > due) {
-    deadlines.delete(runId);
     throw new RunDeadlineError();
   }
 }

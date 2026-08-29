@@ -7,6 +7,7 @@ import {
   RunDeadlineError,
   remainingBudget,
   startRunClock,
+  stopRunClock,
 } from './budget.js';
 import { runHiringPipeline } from './pipeline/hiring.js';
 import { runVcPipeline } from './pipeline/vc.js';
@@ -115,6 +116,8 @@ app.post('/api/runs', (req, res) => {
       } else {
         setRunStatus(runId, 'failed', message);
       }
+    } finally {
+      stopRunClock(runId);
     }
   })();
 });

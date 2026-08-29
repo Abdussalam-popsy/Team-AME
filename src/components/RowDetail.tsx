@@ -45,7 +45,11 @@ function PartnerFacts({ detail }: { detail: PartnerDetail }) {
         <dt>Firm</dt>
         <dd>
           {detail.firm.website ? (
-            <a href={`https://${detail.firm.website}`} target="_blank" rel="noreferrer">
+            <a
+              href={`https://${detail.firm.website.replace(/^https?:\/\//, '')}`}
+              target="_blank"
+              rel="noreferrer"
+            >
               {detail.firm.name}
             </a>
           ) : (

@@ -56,4 +56,17 @@ export const TEAM: TeamMember[] = [
     helpWith: ['brand', 'landing pages', 'distribution', 'technical cofounder'],
     linkedin: 'https://linkedin.com/in/abdussalampopoola',
   },
+  {
+    id: 'team-faisal',
+    name: 'Faisal Lawan',
+    title: 'Programme Associate',
+    headline:
+      'Programme Associate @ Accelerate ME · Doctoral Researcher (Robotics) @ UoM · BEng Mechatronics, top in EEE · ex-FPGA Design Engineer @ Intel/Altera · 5x hackathon winner',
+    focus:
+      'Runs Cohort 13 alongside the director — sessions, founder logistics and the deep-tech side of the room. Hardware and robotics engineer by training, so he can pressure-test a technical build.',
+    achievement:
+      'Shipped a duplicate-MAC search algorithm at Intel that was 1000% more efficient than the legacy design, and an FPGA Snappy compression block 30% faster than software; 5x hackathon winner.',
+    helpWith: ['deep tech', 'hardware and robotics', 'technical validation', 'programme'],
+    linkedin: 'https://www.linkedin.com/in/faisal-lawan/',
+  },
 ]

@@ -68,6 +68,14 @@ export interface TalentProfile {
   proof: string
 }
 
+export interface TeamMember {
+  id: string
+  name: string
+  title: string
+  focus: string
+  linkedin: string
+}
+
 export interface Investor {
   id: string
   name: string

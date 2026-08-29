@@ -74,6 +74,8 @@ export interface TeamMember {
   title: string
   headline: string
   focus: string
+  /** Most impressive public achievement, from their LinkedIn. */
+  achievement: string
   helpWith: string[]
   linkedin: string
 }

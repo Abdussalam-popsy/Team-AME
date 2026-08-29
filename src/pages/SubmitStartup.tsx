@@ -178,8 +178,8 @@ export default function SubmitStartup() {
           </select>
         </div>
 
-        <div className="field">
-          <label>Who was actually on the team</label>
+        <fieldset className="field">
+          <legend>Who was actually on the team</legend>
           <div className="roles">
             {ROLES.map((option) => (
               <button
@@ -192,7 +192,7 @@ export default function SubmitStartup() {
               </button>
             ))}
           </div>
-        </div>
+        </fieldset>
 
         <div className="row">
           <div className="field">
@@ -244,6 +244,7 @@ export default function SubmitStartup() {
           <label htmlFor="submittedBy">Your name or cohort</label>
           <input
             id="submittedBy"
+            autoComplete="name"
             value={submittedBy}
             onChange={(event) => setSubmittedBy(event.target.value)}
             placeholder="AMe 2026 cohort"

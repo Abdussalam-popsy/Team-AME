@@ -1,4 +1,4 @@
-# Startup Graveyard 🪦 — by Accelerate Me
+# Startup Graveyard 🪦 — by Accelerate ME
 
 Every hackathon leaves a graveyard. This one has an exit.
 

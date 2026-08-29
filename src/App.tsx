@@ -1,4 +1,5 @@
 import { HashRouter, NavLink, Route, Routes } from 'react-router-dom'
+import ameMark from './assets/ame-mark.png'
 import Directory from './pages/Directory'
 import Graveyard from './pages/Graveyard'
 import People from './pages/People'
@@ -15,10 +16,10 @@ export default function App() {
       <div className="shell">
         <header className="masthead">
           <NavLink to="/" className="brand">
-            <span className="mark">⚡</span>
+            <img className="mark" src={ameMark} alt="Accelerate ME" width={48} height={41} />
             <span>
               Founder OS
-              <small>by Accelerate Me</small>
+              <small>by Accelerate ME</small>
             </span>
           </NavLink>
           <nav className="nav">
@@ -44,7 +45,7 @@ export default function App() {
         </Routes>
 
         <footer className="footer">
-          Founder OS by Accelerate Me — twelve years of cohorts, alumni and mentors. Every answer is
+          Founder OS by Accelerate ME — twelve years of cohorts, alumni and mentors. Every answer is
           matched against that database. Nothing here leaves your browser.
         </footer>
       </div>

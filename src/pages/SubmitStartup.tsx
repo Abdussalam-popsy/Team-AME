@@ -247,7 +247,7 @@ export default function SubmitStartup() {
             autoComplete="name"
             value={submittedBy}
             onChange={(event) => setSubmittedBy(event.target.value)}
-            placeholder="AMe 2026 cohort"
+            placeholder="AME 2026 cohort"
           />
         </div>
 

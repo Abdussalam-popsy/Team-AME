@@ -6,7 +6,7 @@ import { diagnose } from '../lib/founderOs'
 import { loadStartups } from '../lib/storage'
 import type { Startup } from '../lib/types'
 
-/** What to type into an external search when the AMe database is not enough. */
+/** What to type into an external search when the AME database is not enough. */
 const SEARCH_TERMS: Record<string, string> = {
   technical: 'student software engineer cofounder',
   commercial: 'student sales growth cofounder',
@@ -89,7 +89,7 @@ export default function StartupDashboard() {
       <section className="panel">
         <h2>Who you need, and where to find them</h2>
         <p className="sub">
-          Accelerate Me first — a named person beats a job ad. If the database has nobody, the same
+          Accelerate ME first — a named person beats a job ad. If the database has nobody, the same
           gap becomes an external search.
         </p>
         {gaps.length === 0 ? (
@@ -115,7 +115,7 @@ export default function StartupDashboard() {
                   ))}
                 </div>
               ) : (
-                <p>Nobody in the AMe database matches this one yet.</p>
+                <p>Nobody in the AME database matches this one yet.</p>
               )}
               <div className="meta" style={{ marginTop: 10 }}>
                 {searchLinks(gap.id, startup).map((link) => (
@@ -130,7 +130,7 @@ export default function StartupDashboard() {
       </section>
 
       <section className="panel">
-        <h2>Talk to Accelerate Me</h2>
+        <h2>Talk to Accelerate ME</h2>
         <p className="sub">The team runs the programme, the intros and the cohort places.</p>
         <div className="people">
           {TEAM.map((member) => (

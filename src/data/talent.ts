@@ -1,7 +1,7 @@
 import type { TalentProfile } from '../lib/types'
 
 /**
- * Accelerate Me talent database (seed slice).
+ * Accelerate ME talent database (seed slice).
  * 12 years of alumni, mentors and cohort members, reduced to the fields
  * Founder OS matches on: roles, skills, sectors, availability.
  */
@@ -15,7 +15,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['ai', 'healthtech', 'edtech'],
     university: 'Imperial College London',
     availability: 'cofounder',
-    cohort: 'AMe 2023',
+    cohort: 'AME 2023',
     handle: '@amara.ok',
     proof: 'Built the triage model behind Cohort 9 winner Medley (12k patients screened).',
   },
@@ -28,7 +28,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['fintech', 'marketplace', 'consumer'],
     university: 'UCL',
     availability: 'cofounder',
-    cohort: 'AMe 2024',
+    cohort: 'AME 2024',
     handle: '@twhitfield',
     proof: 'Shipped 3 hackathon MVPs to paying users; 2 still live.',
   },
@@ -41,7 +41,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['consumer', 'edtech', 'marketplace'],
     university: 'KCL',
     availability: 'cofounder',
-    cohort: 'AMe 2025',
+    cohort: 'AME 2025',
     handle: '@ecemdesigns',
     proof: 'Took a dead waitlist from 40 to 1,900 signups with one rewrite.',
   },
@@ -54,9 +54,9 @@ export const TALENT: TalentProfile[] = [
     sectors: ['fintech', 'deeptech', 'healthtech'],
     university: 'LSE',
     availability: 'cofounder',
-    cohort: 'AMe 2022',
+    cohort: 'AME 2022',
     handle: '@rajsells',
-    proof: 'Closed 14 SME pilots for an AMe cohort company in 9 weeks.',
+    proof: 'Closed 14 SME pilots for an AME cohort company in 9 weeks.',
   },
   {
     id: 't-lin',
@@ -67,7 +67,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['consumer', 'marketplace', 'edtech'],
     university: 'Queen Mary University of London',
     availability: 'contract',
-    cohort: 'AMe 2024',
+    cohort: 'AME 2024',
     handle: '@linzgrowth',
     proof: '0 to 30k monthly visitors for a student marketplace in 4 months.',
   },
@@ -80,7 +80,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['healthtech'],
     university: "St George's, University of London",
     availability: 'advisor',
-    cohort: 'AMe mentor',
+    cohort: 'AME mentor',
     handle: '@dr.sofia',
     proof: 'Guided 6 healthtech teams through DCB0129 and first NHS trust pilot.',
   },
@@ -93,7 +93,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['climate', 'deeptech'],
     university: 'Imperial College London',
     availability: 'cofounder',
-    cohort: 'AMe 2023',
+    cohort: 'AME 2023',
     handle: '@kofibuilds',
     proof: 'Prototyped a £40 air-quality node now deployed in 3 London boroughs.',
   },
@@ -106,9 +106,9 @@ export const TALENT: TalentProfile[] = [
     sectors: ['fintech'],
     university: 'City, University of London',
     availability: 'advisor',
-    cohort: 'AMe mentor',
+    cohort: 'AME mentor',
     handle: '@nadiah',
-    proof: 'Set up the compliance stack for 2 AMe fintechs pre-seed.',
+    proof: 'Set up the compliance stack for 2 AME fintechs pre-seed.',
   },
   {
     id: 't-james',
@@ -119,9 +119,9 @@ export const TALENT: TalentProfile[] = [
     sectors: ['ai', 'fintech', 'marketplace'],
     university: 'UCL',
     availability: 'contract',
-    cohort: 'AMe 2025',
+    cohort: 'AME 2025',
     handle: '@jadeyemi',
-    proof: 'Rebuilt reporting for an AMe alum company; churn model went live in 3 weeks.',
+    proof: 'Rebuilt reporting for an AME alum company; churn model went live in 3 weeks.',
   },
   {
     id: 't-priya',
@@ -132,7 +132,7 @@ export const TALENT: TalentProfile[] = [
     sectors: ['edtech', 'consumer', 'healthtech'],
     university: 'LSE',
     availability: 'cofounder',
-    cohort: 'AMe 2024',
+    cohort: 'AME 2024',
     handle: '@priyaops',
     proof: 'Won £75k in non-dilutive grants across 3 cohort teams.',
   },
@@ -145,9 +145,9 @@ export const TALENT: TalentProfile[] = [
     sectors: ['deeptech', 'climate', 'ai'],
     university: 'Imperial College London',
     availability: 'intern',
-    cohort: 'AMe 2026',
+    cohort: 'AME 2026',
     handle: '@oscarl',
-    proof: 'Two first-author papers; built the sim that won AMe Demo Day 2025.',
+    proof: 'Two first-author papers; built the sim that won AME Demo Day 2025.',
   },
   {
     id: 't-hana',
@@ -158,8 +158,8 @@ export const TALENT: TalentProfile[] = [
     sectors: ['consumer', 'edtech', 'climate'],
     university: 'Goldsmiths, University of London',
     availability: 'contract',
-    cohort: 'AMe 2025',
+    cohort: 'AME 2025',
     handle: '@hanamakes',
-    proof: 'Grew an AMe alum community to 8k members with zero ad spend.',
+    proof: 'Grew an AME alum community to 8k members with zero ad spend.',
   },
 ]

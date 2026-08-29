@@ -1,5 +1,6 @@
 import { HashRouter, NavLink, Route, Routes } from 'react-router-dom'
 import Graveyard from './pages/Graveyard'
+import StartupDashboard from './pages/StartupDashboard'
 import StartupDetail from './pages/StartupDetail'
 import SubmitStartup from './pages/SubmitStartup'
 import TalentDatabase from './pages/TalentDatabase'
@@ -21,7 +22,7 @@ export default function App() {
             <NavLink to="/" end>
               Graveyard
             </NavLink>
-            <NavLink to="/talent">Talent database</NavLink>
+            <NavLink to="/talent">Directory</NavLink>
             <NavLink to="/bury">Bury an idea</NavLink>
             <NavLink to="/team">Team</NavLink>
           </nav>
@@ -30,6 +31,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Graveyard />} />
           <Route path="/grave/:id" element={<StartupDetail />} />
+          <Route path="/dashboard/:id" element={<StartupDashboard />} />
           <Route path="/bury" element={<SubmitStartup />} />
           <Route path="/talent" element={<TalentDatabase />} />
           <Route path="/team" element={<Team />} />

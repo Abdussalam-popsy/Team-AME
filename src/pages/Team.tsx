@@ -17,10 +17,18 @@ export default function Team() {
             <h3>{member.name}</h3>
             <p className="tagline">{member.title}</p>
             <p className="epitaph">{member.focus}</p>
+            <p className="sub">{member.headline}</p>
             <div className="meta">
               <a href={member.linkedin} target="_blank" rel="noreferrer">
                 LinkedIn
               </a>
+            </div>
+            <div className="meta" style={{ marginTop: 10 }}>
+              {member.helpWith.map((item) => (
+                <span className="tag" key={item}>
+                  {item}
+                </span>
+              ))}
             </div>
           </article>
         ))}

@@ -19,6 +19,18 @@ Most likely outcome (based on what Housr did):
 
 Next step: talk to the AME team (People → AME team) about a cohort place, and open Housr in the Directory for the full trail.`
 
+const FOLLOWUP_ANSWER = `Simulating that move against cohort teams that hired at your stage. Two hires over three quarters — here are the branches:
+
+✅ Most likely outcome (seen in ~6 of 10 comparable teams) — one engineer + one commercial hire doubles shipping speed by quarter two. Housr made exactly this move early: engineering to keep the product moving, a commercial lead to open university deals. Pilot conversations that took 6 weeks close in 2–3.
+
+📈 The upside — payroll for two juniors ≈ £90–110k/yr. If each closes or ships work that converts 3–4 pilots at typical contract value, the hires pay for themselves. Expected ROI horizon: 9–12 months, first visible signal (pipeline + release velocity) inside one quarter.
+
+⚠️ The negatives — cash burn rises ~£8–9k/month immediately, ROI lags by two quarters, and a wrong hire costs you ~4 months to detect and replace. Teams that hired before finding a distribution wedge burned the runway with nothing to sell into — hire the commercial role only once you know the channel.
+
+🔀 The alternative branch — one hire + contractors: slower, but keeps 5+ months of extra runway. Cohort teams that chose this reached the same revenue point ~1 quarter later with half the risk.
+
+Verdict: make the engineering hire now, stage the commercial hire on your first repeatable channel. Expect to see ROI from month 9.`
+
 export default function Simulate() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
@@ -35,8 +47,9 @@ export default function Simulate() {
     setMessages((m) => [...m, { role: 'user', text: prompt }])
     setInput('')
     setThinking(true)
+    const isFollowUp = messages.some((m) => m.role === 'os')
     setTimeout(() => {
-      setMessages((m) => [...m, { role: 'os', text: ANSWER }])
+      setMessages((m) => [...m, { role: 'os', text: isFollowUp ? FOLLOWUP_ANSWER : ANSWER }])
       setThinking(false)
     }, 2600)
   }
